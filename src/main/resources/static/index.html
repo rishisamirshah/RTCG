@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>One Piece Card Manager</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo">OPTCG</div>
+            <ul class="nav-links">
+                <li class="active">CARD SEARCH</li>
+                <li>MARKET</li>
+                <li>PACK SIM</li>
+                <li>TOP DECKS</li>
+                <li>SHOP</li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Search and Filter Controls -->
+        <div class="search-controls">
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Filter by card name or text">
+                <button type="button" class="search-icon">🔍</button>
+            </div>
+            
+            <div class="filter-group">
+                <select id="colorFilter" class="filter-select">
+                    <option value="">Color</option>
+                    <option value="red">Red</option>
+                    <option value="blue">Blue</option>
+                    <option value="green">Green</option>
+                    <option value="purple">Purple</option>
+                    <option value="black">Black</option>
+                </select>
+
+                <select id="costFilter" class="filter-select">
+                    <option value="">Cost</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6+">6+</option>
+                </select>
+
+                <select id="typeFilter" class="filter-select">
+                    <option value="">Type</option>
+                    <option value="LEADER">Leader</option>
+                    <option value="CHARACTER">Character</option>
+                    <option value="EVENT">Event</option>
+                    <option value="STAGE">Stage</option>
+                </select>
+
+                <div class="legality-filter">
+                    <span>Legality</span>
+                    <button class="active">EN</button>
+                </div>
+
+                <select id="sortFilter" class="filter-select">
+                    <option value="">Sort</option>
+                    <option value="name">Name</option>
+                    <option value="number">Card Number</option>
+                    <option value="power">Power</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Sidebar Filters -->
+        <div class="content-wrapper">
+            <aside class="sidebar">
+                <div class="filter-section">
+                    <h3>Filters</h3>
+                    <div class="filter-group">
+                        <h4>Sets</h4>
+                        <div class="filter-group-content">
+                            <label><input type="checkbox" value="OP01"> OP01</label>
+                            <label><input type="checkbox" value="OP02"> OP02</label>
+                            <label><input type="checkbox" value="ST01"> ST01</label>
+                        </div>
+                    </div>
+                    <div class="filter-group">
+                        <h4>Keywords</h4>
+                        <div class="filter-group-content">
+                            <label><input type="checkbox" value="Rush"> Rush</label>
+                            <label><input type="checkbox" value="Blocker"> Blocker</label>
+                            <label><input type="checkbox" value="Double Attack"> Double Attack</label>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Card Grid -->
+            <main class="main-content">
+                <div class="card-grid" id="cardGrid">
+                    <!-- Cards will be dynamically added here -->
+                </div>
+            </main>
+        </div>
+
+        <!-- Card Details Modal -->
+        <div class="modal" id="cardModal">
+            <div class="modal-content">
+                <span class="close-button" onclick="closeModal()">&times;</span>
+                <div class="card-details">
+                    <img id="modalCardImage" src="" alt="Card Image" class="modal-card-image">
+                    <div class="card-info">
+                        <h2 id="modalCardName"></h2>
+                        <p id="modalCardNumber"></p>
+                        <p id="modalCardType"></p>
+                        <p id="modalLife"></p>
+                        <p id="modalPower"></p>
+                        <p id="modalAttribute"></p>
+                        <p id="modalTiming"></p>
+                        <p id="modalEffect"></p>
+                        <p id="modalAffiliations"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 
