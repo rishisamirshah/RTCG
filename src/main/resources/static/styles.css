@@ -246,8 +246,11 @@ body {
 
 .modal-card-image {
     width: 300px;
-    height: auto;
+    height: 420px;
     border-radius: 8px;
+    object-fit: contain;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
 }
 
 .card-info {
@@ -295,4 +298,202 @@ body {
         max-width: 300px;
         margin: 0 auto;
     }
+}
+
+/* Card count */
+.card-count {
+    margin: 1rem 0;
+    font-size: 1.1rem;
+    color: #666;
+}
+
+/* Card info overlay */
+.card-info-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+}
+
+.card:hover .card-info-overlay {
+    opacity: 1;
+}
+
+.card {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Filter active states */
+.filter-select option:checked,
+.filter-select:focus {
+    background-color: #2196F3;
+    color: white;
+}
+
+.legality-filter button.active {
+    background-color: #2196F3;
+    color: white;
+}
+
+/* Checkbox styling */
+.filter-group-content label {
+    display: block;
+    margin: 0.5rem 0;
+    cursor: pointer;
+}
+
+.filter-group-content input[type="checkbox"] {
+    margin-right: 0.5rem;
+}
+
+/* Search bar enhancements */
+.search-bar {
+    position: relative;
+    flex: 1;
+}
+
+.search-bar input {
+    width: 100%;
+    padding: 0.75rem 2.5rem 0.75rem 1rem;
+    border: 2px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border-color 0.2s ease-in-out;
+}
+
+.search-bar input:focus {
+    border-color: #2196F3;
+    box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.2);
+    outline: none;
+}
+
+.search-icon {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: #666;
+}
+
+/* Loading state */
+.loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(to right, #2196F3, #00BCD4);
+    animation: loading 1s infinite linear;
+    z-index: 1000;
+}
+
+@keyframes loading {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+/* Error message */
+.error-message {
+    padding: 1rem;
+    margin: 1rem 0;
+    background-color: #ffebee;
+    color: #c62828;
+    border: 1px solid #ef9a9a;
+    border-radius: 4px;
+    text-align: center;
+}
+
+/* No results message */
+.no-results {
+    padding: 2rem;
+    text-align: center;
+    color: #666;
+    font-size: 1.1rem;
+    grid-column: 1 / -1;
+}
+
+/* Loading indicator */
+.loading-indicator {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: #2196F3;
+    opacity: 0.8;
+    z-index: 1000;
+}
+
+/* Remove duplicate loading animations */
+.loading, .loading-message {
+    display: none;
+}
+
+/* Loading message */
+.loading-message {
+    padding: 2rem;
+    text-align: center;
+    color: #666;
+    font-size: 1.1rem;
+    grid-column: 1 / -1;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 0.6; }
+    50% { opacity: 1; }
+    100% { opacity: 0.6; }
+}
+
+/* Active filter states */
+.filter-select:focus,
+.filter-select.active {
+    border-color: #2196F3;
+    box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.2);
+}
+
+.filter-select option:checked {
+    background-color: #2196F3;
+    color: white;
+}
+
+/* Card grid loading state */
+.card-grid.loading {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.image-container {
+    position: relative;
+}
+
+.image-debug {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    padding: 8px;
+    font-size: 12px;
+    word-break: break-all;
+    max-height: 100px;
+    overflow-y: auto;
 } 

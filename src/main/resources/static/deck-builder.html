@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>One Piece Card Game - Deck Builder</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: #fff;
+            min-height: 100vh;
+        }
+        
+        .navbar {
+            background-color: #000 !important;
+            padding: 1rem 2rem;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links li {
+            margin: 0 1rem;
+            color: #666;
+            cursor: pointer;
+        }
+
+        .nav-links li a {
+            color: #666;
+            text-decoration: none;
+        }
+
+        .nav-links li a:hover {
+            color: #fff;
+        }
+
+        .nav-links li a.active {
+            color: #fff;
+        }
+
+        .logo {
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .main-content {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .deck-builder {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .deck-info {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .deck-inputs {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .deck-actions {
+            display: flex;
+            gap: 10px;
+            align-items: flex-end;
+        }
+
+        .deck-list {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding: 10px 0;
+            min-height: 220px;
+        }
+
+        .deck-card {
+            position: relative;
+            flex: 0 0 150px;
+        }
+
+        .deck-card img {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        .card-gallery {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .filters {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .color-filter {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .card-stack {
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .card-stack:hover {
+            transform: scale(1.05);
+        }
+
+        .card-stack img {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        .remove-card {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: rgba(255, 0, 0, 0.7);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            color: white;
+        }
+
+        .search-bar::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .filter-checkbox {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .filter-label {
+            cursor: pointer;
+            user-select: none;
+        }
+
+        /* Custom scrollbar for deck list */
+        .deck-list::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .deck-list::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        .deck-list::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 4px;
+        }
+
+        .deck-list::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="/" class="logo">RTCG</a>
+            <ul class="nav-links">
+                <li><a href="/">HOME</a></li>
+                <li><a href="/deck-builder.html" class="active">DECK BUILDER</a></li>
+                <li>CARD SEARCH</li>
+                <li>MARKET</li>
+                <li>PACK SIM</li>
+                <li>TOP DECKS</li>
+                <li>SHOP</li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <!-- Deck Builder -->
+        <div class="deck-builder">
+            <div class="deck-info">
+                <div class="deck-inputs">
+                    <input type="text" class="search-bar" id="deckName" placeholder="Deck Name">
+                    <textarea class="search-bar" id="deckDescription" placeholder="Deck Description" rows="2"></textarea>
+                </div>
+                <div class="deck-actions">
+                    <button class="btn btn-primary" onclick="saveDeck()">Save Deck</button>
+                    <button class="btn btn-secondary" onclick="clearDeck()">Clear Deck</button>
+                </div>
+            </div>
+            <div class="deck-list" id="deckList"></div>
+        </div>
+
+        <!-- Card Gallery -->
+        <div class="card-gallery">
+            <input type="text" class="search-bar" id="searchInput" placeholder="Search cards...">
+            
+            <div class="filters">
+                <div class="filter-group">
+                    <div class="color-filter">
+                        <input type="checkbox" id="redFilter" class="filter-checkbox">
+                        <label for="redFilter" class="filter-label">Red</label>
+                    </div>
+                    <div class="color-filter">
+                        <input type="checkbox" id="blueFilter" class="filter-checkbox">
+                        <label for="blueFilter" class="filter-label">Blue</label>
+                    </div>
+                    <div class="color-filter">
+                        <input type="checkbox" id="greenFilter" class="filter-checkbox">
+                        <label for="greenFilter" class="filter-label">Green</label>
+                    </div>
+                    <div class="color-filter">
+                        <input type="checkbox" id="purpleFilter" class="filter-checkbox">
+                        <label for="purpleFilter" class="filter-label">Purple</label>
+                    </div>
+                    <div class="color-filter">
+                        <input type="checkbox" id="blackFilter" class="filter-checkbox">
+                        <label for="blackFilter" class="filter-label">Black</label>
+                    </div>
+                    <div class="color-filter">
+                        <input type="checkbox" id="yellowFilter" class="filter-checkbox">
+                        <label for="yellowFilter" class="filter-label">Yellow</label>
+                    </div>
+                </div>
+                <div class="color-filter">
+                    <input type="checkbox" id="limitFilter" class="filter-checkbox">
+                    <label for="limitFilter" class="filter-label">Limit to 4</label>
+                </div>
+            </div>
+
+            <div class="cards-container" id="cardGallery"></div>
+        </div>
+    </div>
+
+    <script>
+        let currentDeck = {
+            name: '',
+            description: '',
+            cards: []
+        };
+
+        // Load cards from the API
+        async function loadCards() {
+            try {
+                const response = await fetch('/api/cards');
+                const cards = await response.json();
+                displayCards(cards);
+            } catch (error) {
+                console.error('Error loading cards:', error);
+            }
+        }
+
+        // Display cards in the gallery
+        function displayCards(cards) {
+            const gallery = document.getElementById('cardGallery');
+            gallery.innerHTML = cards.map(card => `
+                <div class="card-stack" onclick="addCardToDeck(${JSON.stringify(card).replace(/"/g, '&quot;')})">
+                    <img src="${card.imagePath}" alt="${card.name}">
+                </div>
+            `).join('');
+        }
+
+        // Add card to deck
+        function addCardToDeck(card) {
+            currentDeck.cards.push(card);
+            updateDeckDisplay();
+        }
+
+        // Remove card from deck
+        function removeCardFromDeck(index) {
+            currentDeck.cards.splice(index, 1);
+            updateDeckDisplay();
+        }
+
+        // Update deck display
+        function updateDeckDisplay() {
+            const deckList = document.getElementById('deckList');
+            deckList.innerHTML = currentDeck.cards.map((card, index) => `
+                <div class="deck-card">
+                    <img src="${card.imagePath}" alt="${card.name}">
+                    <button class="remove-card" onclick="removeCardFromDeck(${index})">×</button>
+                </div>
+            `).join('');
+            
+            // Scroll to the end of the deck list when a new card is added
+            deckList.scrollLeft = deckList.scrollWidth;
+        }
+
+        // Save deck
+        async function saveDeck() {
+            const name = document.getElementById('deckName').value;
+            const description = document.getElementById('deckDescription').value;
+            
+            if (!name) {
+                alert('Please enter a deck name');
+                return;
+            }
+
+            const deck = {
+                name: name,
+                description: description,
+                cards: currentDeck.cards
+            };
+
+            try {
+                const response = await fetch('/api/decks', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(deck)
+                });
+
+                if (response.ok) {
+                    alert('Deck saved successfully!');
+                    clearDeck();
+                } else {
+                    alert('Error saving deck');
+                }
+            } catch (error) {
+                console.error('Error saving deck:', error);
+                alert('Error saving deck');
+            }
+        }
+
+        // Clear deck
+        function clearDeck() {
+            currentDeck.cards = [];
+            document.getElementById('deckName').value = '';
+            document.getElementById('deckDescription').value = '';
+            updateDeckDisplay();
+        }
+
+        // Filter functionality
+        function applyFilters() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const cards = document.querySelectorAll('.card-stack');
+            const redFilter = document.getElementById('redFilter').checked;
+            const blueFilter = document.getElementById('blueFilter').checked;
+            const greenFilter = document.getElementById('greenFilter').checked;
+            const purpleFilter = document.getElementById('purpleFilter').checked;
+            const blackFilter = document.getElementById('blackFilter').checked;
+            const yellowFilter = document.getElementById('yellowFilter').checked;
+            const limitFilter = document.getElementById('limitFilter').checked;
+            
+            cards.forEach(card => {
+                const cardName = card.querySelector('img').alt.toLowerCase();
+                // Add your filter logic here based on the card's color and other properties
+                if (cardName.includes(searchTerm)) {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Add event listeners for filters
+        document.getElementById('searchInput').addEventListener('input', applyFilters);
+        document.querySelectorAll('.filter-checkbox').forEach(checkbox => {
+            checkbox.addEventListener('change', applyFilters);
+        });
+
+        // Initialize
+        loadCards();
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html> 

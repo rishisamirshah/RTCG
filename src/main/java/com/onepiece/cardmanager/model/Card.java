@@ -7,17 +7,30 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Column;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
+import jakarta.persistence.SequenceGenerator;
+import org.hibernate.annotations.GenericGenerator;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "card")
+@SequenceGenerator(name = "card_seq", sequenceName = "card_sequence", allocationSize = 1)
 public class Card {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private Long id;
     
     private String name;                // e.g. "Roronoa Zoro"
     private String cardNumber;          // e.g. "OP01-001"
     private Integer life;               // e.g. 5 (null for character cards)
     private String cardType;            // e.g. "LEADER" or "CHARACTER"
+    
+    @Column(nullable = true)
+    private String color;               // e.g. "RED", "BLUE", "GREEN", "PURPLE"
+    
+    @Column(nullable = true)
+    private Integer cost;
+    
     private String attribute;           // e.g. "DON!!×1"
     private String timing;              // e.g. "Your Turn"
     private String effect;              // e.g. "All your Characters gain +1000 power."
@@ -26,6 +39,15 @@ public class Card {
     
     @Column(nullable = false)
     private String imagePath;           // Path to card image file
+    
+    @Column(name = "card_set", nullable = false)
+    private String set;                 // e.g. "OP01", "ST01", etc.
+    
+    @Column(nullable = true)
+    private Integer counter;            // Counter field for the card
+    
+    @Column(nullable = true)
+    private String trigger;             // Trigger effect for event cards
     
     // Default constructor
     public Card() {}
@@ -40,6 +62,11 @@ public class Card {
         // If life is not null and card type is CHARACTER, throw exception
         if (life != null && "CHARACTER".equals(cardType)) {
             throw new IllegalStateException("Character cards cannot have life points");
+        }
+        
+        // Set the set based on the card number if not already set
+        if (set == null && cardNumber != null) {
+            set = cardNumber.substring(0, 4); // Extract OP01, ST01, etc.
         }
     }
     
@@ -76,6 +103,9 @@ public class Card {
     
     public void setCardNumber(String cardNumber) {
         this.cardNumber = cardNumber;
+        if (cardNumber != null) {
+            this.set = cardNumber.substring(0, 4); // Set the set when card number is set
+        }
     }
     
     public Integer getLife() {
@@ -92,6 +122,22 @@ public class Card {
     
     public void setCardType(String cardType) {
         this.cardType = cardType;
+    }
+    
+    public String getColor() {
+        return color;
+    }
+    
+    public void setColor(String color) {
+        this.color = color;
+    }
+    
+    public Integer getCost() {
+        return cost;
+    }
+    
+    public void setCost(Integer cost) {
+        this.cost = cost;
     }
     
     public String getAttribute() {
@@ -140,5 +186,29 @@ public class Card {
     
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
+    }
+    
+    public String getSet() {
+        return set;
+    }
+    
+    public void setSet(String set) {
+        this.set = set;
+    }
+
+    public Integer getCounter() {
+        return counter;
+    }
+
+    public void setCounter(Integer counter) {
+        this.counter = counter;
+    }
+
+    public String getTrigger() {
+        return trigger;
+    }
+
+    public void setTrigger(String trigger) {
+        this.trigger = trigger;
     }
 } 

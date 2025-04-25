@@ -41,4 +41,15 @@ build/
 logs/
 
 ### Environment Variables ###
-.env 
+.env
+
+### Node ###
+node_modules/
+
+### Next.js ###
+frontend/.next/
+frontend/.DS_Store
+frontend/.env*
+!frontend/.env.example
+frontend/out/
+frontend/build/ 

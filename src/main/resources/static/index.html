@@ -7,12 +7,17 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Loading Indicator -->
+    <div id="loadingIndicator" class="loading-indicator" style="display: none;"></div>
+
     <!-- Navigation Bar -->
     <nav class="navbar">
         <div class="nav-content">
-            <div class="logo">OPTCG</div>
+            <div class="logo">RTCG</div>
             <ul class="nav-links">
-                <li class="active">CARD SEARCH</li>
+                <li><a href="/" class="active">HOME</a></li>
+                <li><a href="/deck-builder.html">DECK BUILDER</a></li>
+                <li>CARD SEARCH</li>
                 <li>MARKET</li>
                 <li>PACK SIM</li>
                 <li>TOP DECKS</li>
@@ -108,7 +113,10 @@
             <div class="modal-content">
                 <span class="close-button" onclick="closeModal()">&times;</span>
                 <div class="card-details">
-                    <img id="modalCardImage" src="" alt="Card Image" class="modal-card-image">
+                    <div class="image-container">
+                        <img id="modalCardImage" src="" alt="Card Image" class="modal-card-image">
+                        <div id="imageDebug" class="image-debug">Loading image...</div>
+                    </div>
                     <div class="card-info">
                         <h2 id="modalCardName"></h2>
                         <p id="modalCardNumber"></p>

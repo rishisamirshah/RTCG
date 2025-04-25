@@ -1,0 +1,137 @@
+/* Dark mode specific overrides */
+
+/* Better card contrast in dark mode */
+.dark .card {
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.4), 0 1px 2px 0 rgba(0, 0, 0, 0.24);
+}
+
+/* Better card image borders */
+.dark img {
+  border-color: rgba(75, 85, 99, 0.5) !important;
+}
+
+/* Improve contrast for badges and buttons */
+.dark .badge, 
+.dark .btn {
+  border-color: rgba(75, 85, 99, 0.8);
+}
+
+/* Improve contrast for selectable items */
+.dark .selectable-card {
+  background-color: rgba(31, 41, 55, 0.8);
+  border-color: rgba(75, 85, 99, 0.8);
+}
+
+.dark .selectable-card:hover {
+  background-color: rgba(55, 65, 81, 0.8);
+}
+
+/* Better form controls in dark mode */
+.dark input,
+.dark select,
+.dark textarea {
+  background-color: rgba(31, 41, 55, 0.8);
+  border-color: rgba(75, 85, 99, 0.8);
+  color: #e5e7eb;
+}
+
+/* Better focus styles for dark mode */
+.dark *:focus-visible {
+  outline-color: #dc2626;
+}
+
+/* Improved scrollbars for dark mode */
+.dark ::-webkit-scrollbar {
+  width: 14px;
+  height: 14px;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: rgba(31, 41, 55, 0.8);
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background-color: rgba(75, 85, 99, 0.8);
+  border-radius: 10px;
+  border: 3px solid rgba(31, 41, 55, 0.8);
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(107, 114, 128, 0.8);
+}
+
+/* Card styling improvements */
+.dark .deck-card {
+  background-color: rgba(31, 41, 55, 0.6);
+  border-color: rgba(75, 85, 99, 0.8);
+}
+
+.dark .card-grid-item {
+  background-color: rgba(31, 41, 55, 0.6);
+}
+
+/* Improved modal background for dark mode */
+.dark .modal-background {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+/* Fix for color filters */
+.dark .filter-badge {
+  border-color: rgba(75, 85, 99, 0.8);
+}
+
+.dark .filter-badge.selected {
+  background-color: #b91c1c;
+  color: white;
+}
+
+/* Deck builder specific dark mode improvements */
+.dark .card-container,
+.dark .card-content {
+  background-color: rgb(24, 24, 27);
+}
+
+.dark .dialog-content,
+.dark [role="dialog"] {
+  background-color: rgb(24, 24, 27);
+  color: rgb(229, 231, 235);
+}
+
+/* Deck builder dialog content */
+.dark [role="dialog"] > div {
+  background-color: rgb(24, 24, 27);
+  color: rgb(229, 231, 235);
+}
+
+/* Improve stats charts in dark mode */
+.dark .recharts-text {
+  fill: rgb(229, 231, 235);
+}
+
+.dark .recharts-cartesian-grid-horizontal line,
+.dark .recharts-cartesian-grid-vertical line {
+  stroke: rgba(75, 85, 99, 0.4);
+}
+
+.dark .recharts-legend-item-text {
+  color: rgb(229, 231, 235) !important;
+}
+
+/* Card hover effect in dark mode */
+.dark img:hover {
+  box-shadow: 0 0 10px rgba(220, 38, 38, 0.5);
+}
+
+/* Improve tab styling in dark mode */
+.dark [role="tablist"] {
+  background-color: rgba(55, 65, 81, 0.3);
+}
+
+.dark [role="tab"] {
+  color: rgb(229, 231, 235);
+}
+
+.dark [role="tab"][data-state="active"] {
+  background-color: rgba(220, 38, 38, 0.7);
+  color: white;
+} 
