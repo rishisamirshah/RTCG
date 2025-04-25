@@ -3,15 +3,19 @@ FROM eclipse-temurin:17-jdk-jammy as builder
 
 WORKDIR /app
 
-# Copy pom.xml and download dependencies
+# Copy the Maven wrapper files
+COPY .mvn/ .mvn
+COPY mvnw .
+
+# Copy pom.xml and download dependencies using the wrapper
 COPY pom.xml .
-RUN mvn dependency:go-offline -B
+RUN ./mvnw dependency:go-offline -B
 
 # Copy the rest of the source code
 COPY src ./src
 
-# Package the application
-RUN mvn package -DskipTests -B
+# Package the application using the wrapper
+RUN ./mvnw package -DskipTests -B
 
 # Stage 2: Create the final lightweight image
 FROM eclipse-temurin:17-jre-jammy
