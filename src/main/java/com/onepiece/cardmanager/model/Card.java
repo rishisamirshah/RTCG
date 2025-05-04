@@ -13,10 +13,10 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "card")
-@SequenceGenerator(name = "card_seq", sequenceName = "card_sequence", allocationSize = 1)
+@SequenceGenerator(name = "card_sequence", sequenceName = "card_sequence", allocationSize = 1)
 public class Card {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "card_sequence")
     @Column(name = "id")
     private Long id;
     
