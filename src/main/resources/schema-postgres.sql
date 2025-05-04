@@ -1,20 +1,20 @@
 -- PostgreSQL-compatible schema
 CREATE TABLE IF NOT EXISTS card (
     id SERIAL PRIMARY KEY,
-    card_number VARCHAR(10) UNIQUE,
-    name VARCHAR(100),
-    card_type VARCHAR(20),
-    color VARCHAR(20),
+    card_number TEXT UNIQUE,
+    name TEXT,
+    card_type TEXT,
+    color TEXT,
     cost INTEGER,
     power INTEGER,
     life INTEGER,
     affiliations TEXT,
     effect TEXT,
     image_path TEXT,
-    card_set VARCHAR(10),
+    card_set TEXT,
     counter INTEGER,
-    attribute VARCHAR(100),
-    timing VARCHAR(100),
+    attribute TEXT,
+    timing TEXT,
     trigger TEXT
 );
 
