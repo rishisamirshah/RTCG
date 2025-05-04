@@ -33,11 +33,16 @@ public class Card {
     
     private String attribute;           // e.g. "DON!!×1"
     private String timing;              // e.g. "Your Turn"
+    
+    @Column(columnDefinition = "TEXT")
     private String effect;              // e.g. "All your Characters gain +1000 power."
+    
+    @Column(columnDefinition = "TEXT")
     private String affiliations;        // e.g. "Supernovas / Straw Hat Crew"
+    
     private Integer power;              // e.g. 5000
     
-    @Column(nullable = false)
+    @Column(columnDefinition = "TEXT", nullable = false)
     private String imagePath;           // Path to card image file
     
     @Column(name = "card_set", nullable = false)
@@ -46,7 +51,7 @@ public class Card {
     @Column(nullable = true)
     private Integer counter;            // Counter field for the card
     
-    @Column(nullable = true)
+    @Column(columnDefinition = "TEXT", nullable = true)
     private String trigger;             // Trigger effect for event cards
     
     // Default constructor

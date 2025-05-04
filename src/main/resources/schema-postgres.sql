@@ -8,11 +8,14 @@ CREATE TABLE IF NOT EXISTS card (
     cost INTEGER,
     power INTEGER,
     life INTEGER,
-    affiliations VARCHAR(100),
+    affiliations TEXT,
     effect TEXT,
-    image_path VARCHAR(255),
+    image_path TEXT,
     card_set VARCHAR(10),
-    counter INTEGER
+    counter INTEGER,
+    attribute VARCHAR(100),
+    timing VARCHAR(100),
+    trigger TEXT
 );
 
 -- Update the card_set field based on card_number if needed
