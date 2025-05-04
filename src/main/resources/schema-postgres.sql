@@ -1,4 +1,6 @@
 -- PostgreSQL-compatible schema
+DROP TABLE IF EXISTS card CASCADE;
+
 CREATE TABLE IF NOT EXISTS card (
     id SERIAL PRIMARY KEY,
     card_number TEXT UNIQUE,
