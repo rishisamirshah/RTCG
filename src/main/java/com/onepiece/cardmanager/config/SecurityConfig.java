@@ -18,6 +18,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import java.util.Arrays;
 import java.util.List;
@@ -69,15 +70,16 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            .cors(cors -> cors.configurationSource(corsConfigurationSource())) // Apply CORS config
-            .csrf(AbstractHttpConfigurer::disable) // Disable CSRF (common for APIs)
+            .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+            .csrf(AbstractHttpConfigurer::disable)
             .authorizeHttpRequests(authz -> authz
-                .requestMatchers("/api/auth/**").permitAll() // Allow auth endpoints
-                .requestMatchers(HttpMethod.GET, "/api/cards/**").permitAll() // Allow viewing cards
-                // Add other public endpoints here if needed
-                .anyRequest().authenticated() // Secure all other endpoints
+                .requestMatchers("/").permitAll() // Permit root access
+                .requestMatchers("/api/auth/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/cards/**").permitAll()
+                 // Permit access to static resources if you have a frontend bundled
+                .requestMatchers("/static/**", "/index.html", "/*.js", "/*.css", "/*.ico", "/*.png", "/*.jpg", "/*.gif", "/*.svg").permitAll()
+                .anyRequest().authenticated()
             )
-            // Use basic form login for now - can be replaced with custom login endpoint/JWT later
             .formLogin(form -> form
                 .loginProcessingUrl("/api/auth/login") // Default Spring login endpoint
                 .successHandler((request, response, authentication) -> {
