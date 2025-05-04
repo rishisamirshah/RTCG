@@ -20,18 +20,27 @@ public class Card {
     @Column(name = "id")
     private Long id;
     
+    @Column(columnDefinition = "TEXT")
     private String name;                // e.g. "Roronoa Zoro"
+    
+    @Column(columnDefinition = "TEXT")
     private String cardNumber;          // e.g. "OP01-001"
+    
     private Integer life;               // e.g. 5 (null for character cards)
+    
+    @Column(columnDefinition = "TEXT")
     private String cardType;            // e.g. "LEADER" or "CHARACTER"
     
-    @Column(nullable = true)
+    @Column(nullable = true, columnDefinition = "TEXT")
     private String color;               // e.g. "RED", "BLUE", "GREEN", "PURPLE"
     
     @Column(nullable = true)
     private Integer cost;
     
+    @Column(columnDefinition = "TEXT")
     private String attribute;           // e.g. "DON!!×1"
+    
+    @Column(columnDefinition = "TEXT")
     private String timing;              // e.g. "Your Turn"
     
     @Column(columnDefinition = "TEXT")
@@ -45,7 +54,7 @@ public class Card {
     @Column(columnDefinition = "TEXT", nullable = false)
     private String imagePath;           // Path to card image file
     
-    @Column(name = "card_set", nullable = false)
+    @Column(name = "card_set", columnDefinition = "TEXT", nullable = false)
     private String set;                 // e.g. "OP01", "ST01", etc.
     
     @Column(nullable = true)
