@@ -1,15 +1,15 @@
 package com.onepiece.cardmanager.config.st;
 
+import com.onepiece.cardmanager.config.BaseInitializer;
 import com.onepiece.cardmanager.model.Card;
 import com.onepiece.cardmanager.repository.CardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 @Component
 @Order(21) // Order after ST10
-public class ST11Initializer implements CommandLineRunner {
+public class ST11Initializer extends BaseInitializer {
 
     private final CardRepository cardRepository;
 
@@ -19,7 +19,7 @@ public class ST11Initializer implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    protected void initialize(String... args) throws Exception {
         String setCode = "ST11";
         // Check if cards for this set already exist
         if (cardRepository.countBySetAndCardNumberStartingWith(setCode, setCode) > 0) {

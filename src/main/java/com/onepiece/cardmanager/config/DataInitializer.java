@@ -2,7 +2,6 @@ package com.onepiece.cardmanager.config;
 
 import com.onepiece.cardmanager.repository.CardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
@@ -32,7 +31,7 @@ import com.onepiece.cardmanager.config.st.ST21Initializer;
 
 @Component
 @Order(0)
-public class DataInitializer implements CommandLineRunner {
+public class DataInitializer extends BaseInitializer {
 
     private final CardRepository cardRepository;
     // Add fields for ST initializers
@@ -107,7 +106,7 @@ public class DataInitializer implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    protected void initialize(String... args) throws Exception {
         // Master initializer - delegates to set-specific initializers
         long cardCount = cardRepository.count();
         System.out.println("Current card count in database: " + cardCount);

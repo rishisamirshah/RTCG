@@ -3,13 +3,12 @@ package com.onepiece.cardmanager.config;
 import com.onepiece.cardmanager.model.Card;
 import com.onepiece.cardmanager.repository.CardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 @Component
-@Order(3) // Updated: Run after OP01 and OP02 initializers
-public class OP03Initializer implements CommandLineRunner {
+@Order(3)
+public class OP03Initializer extends BaseInitializer {
 
     private final CardRepository cardRepository;
 
@@ -19,7 +18,7 @@ public class OP03Initializer implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    protected void initialize(String... args) throws Exception {
         // Only initialize if we have no OP03 cards
         if (cardRepository.countBySetAndCardNumberStartingWith("OP03", "OP03") > 0) {
             System.out.println("OP03 cards already exist, skipping initialization");
