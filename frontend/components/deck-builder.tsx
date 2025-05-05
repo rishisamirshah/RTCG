@@ -621,7 +621,7 @@ export default function DeckBuilder() {
   useEffect(() => {
     const fetchSavedDecks = async () => {
       try {
-        setLoadingDecks(true);
+      setLoadingDecks(true);
         const response = await fetchApi<DeckListing[]>('decks');
         setSavedDecks(response);
       } catch (error) {
@@ -640,7 +640,7 @@ export default function DeckBuilder() {
     try {
       setLoadingDeck(true);
       const loadedDeck = await fetchApi<DeckDetail>(`decks/${deckId}`);
-      
+
       // --- Reconstruct Deck State from DTO ---
 
       // Find Leader Card

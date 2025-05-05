@@ -23,11 +23,16 @@ const ALL_COLORS = ["Red", "Green", "Blue", "Purple", "Black", "Yellow"];
 const ALL_COSTS = Array.from({ length: 10 }, (_, i) => i + 1); // Costs 1-10
 const ALL_TYPES = ["Leader", "Character", "Event"];
 const ALL_COUNTERS = [0, 1000, 2000]; // Add common counter values
-const ALL_SETS = [...Array.from({ length: 10 }, (_, i) => `OP${String(i + 1).padStart(2, '0')}`), "EB01"]; // OP01-OP10 plus EB01
+const ALL_SETS = [
+  ...Array.from({ length: 10 }, (_, i) => `OP${String(i + 1).padStart(2, '0')}`),
+  "EB01",
+  "EB02" // Added EB02
+];
 // Define starter decks
 const ALL_STARTER_DECKS = [
   ...Array.from({ length: 21 }, (_, i) => `ST${String(i + 1).padStart(2, '0')}`), // ST01-ST21
-  "EB01" // Add EB01 set
+  "EB01",
+  "EB02" // Added EB02
 ];
 // Define common keywords (adjust as needed)
 const ALL_KEYWORDS = ["Rush", "Blocker", "Double Attack", "Banish", "Trigger", "On Play", "When Attacking", "On K.O.", "Counter"];

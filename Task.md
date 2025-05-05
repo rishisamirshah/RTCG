@@ -17,6 +17,9 @@ The RTCG One Piece Card Library is a web application that allows users to view a
 - Intelligent tab synchronization between card browser and deck views
 - Authentication gating for deck save functionality
 - Top Decks page implemented with UI for browsing and viewing decks
+- **Deployment:**
+    - Backend deployed to Render (`https://onepieceapp.onrender.com`)
+    - Frontend deployed to Vercel (`https://rtcg.vercel.app`)
 
 ## Remaining Tasks
 - **Deck Builder Feature (Complete - See Section Below)**
@@ -313,8 +316,10 @@ public class OPXXInitializer implements CommandLineRunner {
 ```
 
 ## Deployment Information
-- Docker container configuration available in Dockerfile
-- See DEPLOYMENT.md for detailed deployment instructions
-- Application uses H2 database in development and PostgreSQL in production
-- Frontend is built and served as static assets by the Spring Boot application in production
-- Environment variables required for production deployment include database credentials and JWT secret 
+- Backend hosted on Render.
+- Frontend hosted on Vercel.
+- Docker container configuration available in Dockerfile for backend.
+- See DEPLOYMENT.md for detailed backend deployment instructions.
+- Application uses H2 database in development and PostgreSQL in production (Render).
+- Frontend is built and served by Vercel, connecting to the Render backend API.
+- Environment variables required for production deployment include database credentials (Render) and `BACKEND_URL` (Vercel). 
