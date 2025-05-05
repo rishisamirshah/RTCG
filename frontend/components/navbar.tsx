@@ -15,7 +15,7 @@ export default function Navbar() {
   const handleLogout = () => {
     const form = document.createElement('form')
     form.method = 'POST'
-    form.action = 'http://localhost:8080/api/auth/logout'
+    form.action = '/api/auth/logout'
     document.body.appendChild(form)
     form.submit()
   }

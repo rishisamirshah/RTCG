@@ -11,6 +11,9 @@ try {
   }
 }
 
+// Define the backend URL
+const BACKEND_URL = process.env.BACKEND_URL || 'https://onepieceapp.onrender.com';
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   eslint: {
@@ -20,13 +23,12 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-    domains: ['localhost'],
+    domains: ['localhost', 'onepieceapp.onrender.com'],
     unoptimized: true,
     remotePatterns: [
       {
-        protocol: 'http',
-        hostname: 'localhost',
-        port: '8080',
+        protocol: 'https',
+        hostname: 'onepieceapp.onrender.com',
         pathname: '/images/**',
       },
     ],
@@ -41,7 +43,11 @@ const nextConfig = {
     return [
       {
         source: '/images/:path*',
-        destination: 'http://localhost:8080/images/:path*', // Proxy to Spring backend
+        destination: `${BACKEND_URL}/images/:path*`, // Proxy to deployed backend
+      },
+      {
+        source: '/api/:path*',
+        destination: `${BACKEND_URL}/api/:path*`, // Proxy API requests
       },
     ]
   },

@@ -16,15 +16,15 @@ The RTCG One Piece Card Library is a web application that allows users to view a
 - Deck export functionality for sharing decklists
 - Intelligent tab synchronization between card browser and deck views
 - Authentication gating for deck save functionality
+- Top Decks page implemented with UI for browsing and viewing decks
 
 ## Remaining Tasks
-- **Deck Builder Feature (See Section Below)**
-- **User Authentication (See Section Below)**
+- **Deck Builder Feature (Complete - See Section Below)**
+- **User Authentication (Complete - See Section Below)**
 - Complete importing all 21 starter decks (ST01-ST21)
 - Implement backend filtering API and integrate with frontend
 - Complete remaining UI filtering/sorting functionality (Keywords, Sort, Legality, Power, etc.)
 - General UI/UX improvements (see section below)
-
 
 ## Deck Builder Tasks
 - **Backend:**
@@ -32,10 +32,10 @@ The RTCG One Piece Card Library is a web application that allows users to view a
     - [x] Create `Deck`, `DeckCard` Entities (Linked to User)
     - [x] Create `DeckRepository` (With user lookup)
     - [x] Create `DeckController` (Basic CRUD, User-specific operations)
-    - [ ] Refine backend validation (deck rules, etc.)
+    - [x] Refine backend validation (deck rules, etc.)
 - **Frontend Page:**
     - [x] Create `/deck-builder` route and page component (in separate project)
-    - [ ] Integrate Deck Builder into main frontend (`/deck-builder` route)
+    - [x] Integrate Deck Builder into main frontend (`/deck-builder` route)
 - **Frontend UI:**
     - [x] Design/Implement two-column layout (Library View | Deck View)
     - [x] Implement Deck View UI (Leader Slot, Main Deck List, Stats, Name, Buttons)
@@ -60,7 +60,7 @@ The RTCG One Piece Card Library is a web application that allows users to view a
     - [x] Integrate/adapt `CardDisplayArea` for the Library View within Deck Builder
     - [x] Implement tab synchronization between card browser and deck view
 
-## User Authentication Tasks (New Section)
+## User Authentication Tasks
 - **Backend:**
     - [x] Add Spring Security Dependency
     - [x] Create `User` Entity
@@ -87,59 +87,59 @@ The RTCG One Piece Card Library is a web application that allows users to view a
     - [x] Update Navbar to display auth state
     - [x] Add login/register prompt for non-authenticated users when saving decks
 - **TODO:**
-    - [ ] Implement shared auth state between frontends OR merge frontends
-    - [ ] Add more robust error handling (backend & frontend)
-    - [ ] Consider JWT or other token-based auth instead of sessions if preferred
-    - [ ] Implement "My Decks" page/functionality
+    - [x] Implement shared auth state between frontends OR merge frontends
+    - [x] Add more robust error handling (backend & frontend)
+    - [x] Consider JWT or other token-based auth instead of sessions if preferred
+    - [x] Implement "My Decks" page/functionality
     - [ ] Implement user roles/permissions if needed
 
 ## UI Improvement Tasks (General / Card Search Page)
 - **Filtering/Searching:**
     - [x] Implement basic client-side filtering for Search, Color, Cost, Type, Counter, Set
-    - [ ] Implement backend filtering API (pass all filter params)
-    - [ ] Update frontend (`CardDisplayArea`) to use backend filtering API
-    - [ ] Implement Set filtering UI (`FilterSidebar`)
+    - [x] Implement backend filtering API (pass all filter params)
+    - [x] Update frontend (`CardDisplayArea`) to use backend filtering API
+    - [x] Implement Set filtering UI (`FilterSidebar`)
     - [ ] Implement Keyword filtering UI (`FilterSidebar` - Rush, Blocker, KO, etc.)
-    - [ ] Implement Power filtering UI
-    - [ ] Implement functional Sort dropdown
+    - [x] Implement Power filtering UI
+    - [x] Implement functional Sort dropdown
     - [ ] Implement Legality filter
-    - [ ] Add a "Reset Filters" button
-    - [ ] Debounce search input
+    - [x] Add a "Reset Filters" button
+    - [x] Debounce search input
 - **Card Display:**
-    - [ ] Improve layout/styling of `CardGrid` and `CardItem`
-    - [ ] Handle multi-color cards more elegantly
-    - [ ] Add loading skeletons/placeholders
-    - [ ] Add visual indicator for active filters
+    - [x] Improve layout/styling of `CardGrid` and `CardItem`
+    - [x] Handle multi-color cards more elegantly
+    - [x] Add loading skeletons/placeholders
+    - [x] Add visual indicator for active filters
 - **Card Modal (`CardModal`):**
-    - [ ] Improve layout and styling
-    - [ ] Add links for affiliations/keywords
+    - [x] Improve layout and styling
+    - [x] Add links for affiliations/keywords
 - **General:**
     - [x] Render distance implementation (infinite scrolling)
-    - [ ] Implement pagination
-    - [ ] Add proper error handling display
-    - [ ] Improve responsiveness
-    - [ ] Refine `Navbar` and `FilterSidebar` components
+    - [x] Implement pagination
+    - [x] Add proper error handling display
+    - [x] Improve responsiveness
+    - [x] Refine `Navbar` and `FilterSidebar` components
 
 ## Top Decks Page Tasks
 - **Backend:**
-    - [ ] Create `TopDeck` model (name, player, placement, date, leader, cards, etc.)
-    - [ ] Create `TopDeckRepository` interface
-    - [ ] Create `TopDeckController` with endpoints (GET all, GET by id, etc.)
-    - [ ] Add sample data for testing
+    - [x] Create `TopDeck` model (name, player, placement, date, leader, cards, etc.)
+    - [x] Create `TopDeckRepository` interface
+    - [x] Create `TopDeckController` with endpoints (GET all, GET by id, etc.)
+    - [x] Add sample data for testing
 - **Frontend Page:**
     - [x] Create `/top-decks` route and page component
     - [x] Design page layout similar to TFT meta comps page
-    - [ ] Refine featured decks section layout for better balance -> Change to display top 3 equally
+    - [x] Refine featured decks section layout for better balance -> Change to display top 3 equally
 - **Frontend UI Components:**
     - [x] Create `DeckSidebar` component (shows leader, deck name, player, placement)
     - [x] Create `DeckDetails` component (expanded view with deck list and stats)
     - [x] Add "Save to Library" and "Copy Deck Code" buttons
-    - [ ] Implement filter/search functionality for decks
-    - [ ] Increase number of preview cards in `DeckSidebar` header -> Show 6-8 cards
+    - [x] Implement filter/search functionality for decks
+    - [x] Increase number of preview cards in `DeckSidebar` header -> Show 6-8 cards
     - [x] Emphasize Win Rate stat in `DeckSidebar` header
     - [x] Remove Top 4% stat from `DeckSidebar` header
-    - [ ] Add "View Tier List Analysis" button and modal -> Change to Visual Tier List
-    - [ ] Create `TierListVisual` component for modal display
+    - [x] Add "View Tier List Analysis" button and modal -> Change to Visual Tier List
+    - [x] Create `TierListVisual` component for modal display
 - **Frontend Logic:**
     - [x] Fetch top decks from API (mock data for now)
     - [x] Implement expand/collapse functionality for deck details
@@ -150,11 +150,14 @@ The RTCG One Piece Card Library is a web application that allows users to view a
 - Implement deck image generation for sharing on social media
 - Add card rarity and pricing information
 - Add image recognition to automatically extract card information
-- Create a more intuitive UI for browsing and searching cards
-- Add pagination for large result sets
 - Add tournament legality information
 - Implement card collection tracking
 - Add price tracking from various marketplaces
+- Implement mobile-responsive design for all features
+- Add deck analysis tools (probability calculators, etc.)
+- Social sharing and commenting on decks
+- Create a community forum for discussing strategies and cards
+- Add card rotation and banlist tracking
 
 ## Set Import Progress
 | Set | Status | Notes |
@@ -198,16 +201,21 @@ The RTCG One Piece Card Library is a web application that allows users to view a
 ## Project Structure
 - **Backend** (`src/main/...`)
   - `CardManagerApplication.java`
-  - `config/` (Initializers, WebConfig)
-  - `model/` (`Card.java`)
-  - `repository/` (`CardRepository.java`)
-  - `controller/` (`CardController.java`)
+  - `config/` (Initializers, WebConfig, SecurityConfig)
+  - `model/` (`Card.java`, `Deck.java`, `DeckCard.java`, `User.java`, `TopDeck.java`)
+  - `repository/` (`CardRepository.java`, `DeckRepository.java`, `UserRepository.java`, `TopDeckRepository.java`)
+  - `controller/` (`CardController.java`, `DeckController.java`, `AuthController.java`, `TopDeckController.java`)
+  - `service/` (`UserService.java`)
+  - `dto/` (Data Transfer Objects)
+  - `specification/` (JPA Specifications for advanced filtering)
   - `util/` (`CardBulkImporter.java`)
 - **Frontend** (`frontend/`)
-  - `app/` (Main pages, layout)
-  - `components/` (Reusable UI components: Navbar, FilterSidebar, CardGrid, CardModal, ui/)
-  - `lib/` (Utilities, type definitions)
+  - `app/` (Main pages, layout, deck-builder, login, register, top-decks)
+  - `components/` (Reusable UI components: Navbar, FilterSidebar, CardGrid, CardModal, DeckView, DeckStats, TierList, ui/)
+  - `hooks/` (Custom hooks including useAuth, useDeck)
+  - `lib/` (Utilities, type definitions, API calls)
   - `public/` (Static assets, including card images)
+  - `styles/` (Global CSS, themes)
   - `package.json`, `next.config.mjs`, `tailwind.config.js`, etc.
 
 ## Workflow for Adding New Cards
@@ -252,9 +260,12 @@ public class Card {
 ```
 
 ## Search Functionalities (Backend API)
-- `/api/cards` - Get cards (accepts filter parameters: `searchTerm`, `colors`, `costs`, `types`, `sets`)
-- `/api/cards/test/{cardNumber}` - Get single card (temporary)
-- *(Need to add support for more filter/sort parameters)*
+- `/api/cards` - Get cards (accepts filter parameters: `searchTerm`, `colors`, `costs`, `types`, `sets`, `powers`, `sort`)
+- `/api/cards/test/{cardNumber}` - Get single card
+- `/api/decks` - CRUD operations for user decks
+- `/api/auth` - Authentication endpoints (`/register`, `/me`, etc.)
+- `/api/top-decks` - Top deck listing and management
+- *(Additional endpoints for advanced filtering/sorting)*
 
 ## Template for New Initializer
 When creating a new set initializer, follow this template:
@@ -301,22 +312,9 @@ public class OPXXInitializer implements CommandLineRunner {
 }
 ```
 
-## Notes and Observations
-- Card images are now served from `frontend/public/images/`. Ensure paths in initializers are correct.
-- Database needs to be deleted (`cardmanager.db`) for initializer changes to take effect.
-- Frontend uses client-side filtering currently; needs backend integration.
-
-## Future Enhancements (From Old List)
-- Implement deck building functionality
-- Add card rarity and pricing information
-- Implement user accounts for saving favorite cards and decks
-- Add image recognition to automatically extract card information
-
-## Future Enhancements
-- Add additional search filters
-- Implement deck building functionality
-- Add card rarity and pricing information
-- Implement user accounts for saving favorite cards and decks
-- Add image recognition to automatically extract card information
-- Create a more intuitive UI for browsing and searching cards
-- Add pagination for large result sets 
+## Deployment Information
+- Docker container configuration available in Dockerfile
+- See DEPLOYMENT.md for detailed deployment instructions
+- Application uses H2 database in development and PostgreSQL in production
+- Frontend is built and served as static assets by the Spring Boot application in production
+- Environment variables required for production deployment include database credentials and JWT secret 

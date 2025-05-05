@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Search, ChevronDown } from "lucide-react";
 import FilterSidebar from "@/components/filter-sidebar";
+import { fetchApi } from "@/lib/api";
 
 // Define filter options
 const ALL_COLORS = ["Red", "Green", "Blue", "Purple", "Black", "Yellow"];
@@ -56,11 +57,7 @@ export default function CardDisplayArea() {
       setIsLoading(true);
       setError(null);
       try {
-        const res = await fetch('http://localhost:8080/api/cards', { cache: 'no-store' });
-        if (!res.ok) {
-          throw new Error(`HTTP error! status: ${res.status}`);
-        }
-        const data: Card[] = await res.json();
+        const data = await fetchApi<Card[]>('cards');
         setAllCards(data);
       } catch (e) {
         console.error("Failed to fetch cards:", e);

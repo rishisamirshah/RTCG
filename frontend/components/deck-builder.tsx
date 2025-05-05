@@ -28,6 +28,7 @@ import { Card as CardType, CardStackGroup } from "@/lib/types"
 import { DeckStats } from "@/components/deck-stats"
 import { useAuth } from "@/hooks/useAuth"
 import DeckImageGenerator from './deck-image-generator'
+import { fetchApi, postApi, getApiUrl } from "@/lib/api";
 
 // Remove sample card data
 // const sampleCards = [...]
@@ -107,13 +108,7 @@ export default function DeckBuilder() {
       setLoading(true)
       setError(null)
       try {
-        // Assuming backend runs on localhost:8080
-        // Make sure CORS is configured on the backend
-        const response = await fetch("http://localhost:8080/api/cards")
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`)
-        }
-        const data: CardType[] = await response.json()
+        const data = await fetchApi<CardType[]>("cards");
         setAllCards(data)
 
         // Derive filter options from fetched data
@@ -498,27 +493,10 @@ export default function DeckBuilder() {
     }
 
     try {
-      const response = await fetch("http://localhost:8080/api/decks", {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-        body: JSON.stringify(payload),
-      })
-
-      if (!response.ok) {
-        // Try to parse error message from backend
-        const errorData = await response.json().catch(() => null);
-        const errorMessage = errorData?.message || `HTTP error! status: ${response.status}`;
-        throw new Error(errorMessage);
-      }
-
-      const savedDeckData = await response.json(); // Get saved deck data (includes ID)
+      const savedDeckData = await postApi('decks', payload);
       console.log("Deck saved successfully:", savedDeckData);
       alert(`Deck "${savedDeckData.name}" saved successfully!`);
       setSaveDialogOpen(false);
-
     } catch (error) {
        console.error("Failed to save deck:", error);
        alert(`Failed to save deck: ${error instanceof Error ? error.message : String(error)}`);
@@ -642,67 +620,27 @@ export default function DeckBuilder() {
   // Fetch saved decks when load dialog opens
   useEffect(() => {
     const fetchSavedDecks = async () => {
-      if (!loadDialogOpen || !isLoggedIn) return; // Only fetch if dialog is open and user is logged in
-
-      setLoadingDecks(true);
-      setLoadDecksError(null);
-      setSavedDecks([]); // Clear previous decks
-
       try {
-        // Assumes backend is secured and returns decks for the current user
-        const response = await fetch("http://localhost:8080/api/decks", {
-           method: 'GET',
-           headers: {
-             'Accept': 'application/json',
-           },
-           credentials: 'include', // Send session cookies
-        });
-
-        if (!response.ok) {
-           // Handle specific errors like 401 Unauthorized if needed
-           if (response.status === 401 || response.status === 403) {
-               throw new Error("Authentication required. Please log in.");
-           }
-           throw new Error(`Failed to fetch decks: ${response.statusText}`);
-        }
-
-        const data = await response.json();
-        setSavedDecks(data); // Expects an array of DeckDTO-like objects
-
-      } catch (error: any) {
+        setLoadingDecks(true);
+        const response = await fetchApi<DeckListing[]>('decks');
+        setSavedDecks(response);
+      } catch (error) {
         console.error("Error fetching saved decks:", error);
-        setLoadDecksError(error.message || "An unknown error occurred.");
+        alert("Failed to fetch saved decks");
       } finally {
         setLoadingDecks(false);
       }
     };
 
     fetchSavedDecks();
-  }, [loadDialogOpen, isLoggedIn]); // Re-fetch if dialog opens or login state changes
+  }, []);
 
   // Load a selected deck from the backend
   const handleLoadDeck = async (deckId: number) => {
-    setLoadingDecks(true); // Indicate loading within the dialog perhaps
-    setLoadDecksError(null);
     try {
-      const response = await fetch(`http://localhost:8080/api/decks/${deckId}`, {
-        method: 'GET',
-        headers: { 'Accept': 'application/json' },
-        credentials: 'include',
-      });
-
-      if (!response.ok) {
-        if (response.status === 401 || response.status === 403) {
-          throw new Error("Authentication required or forbidden.");
-        }
-        if (response.status === 404) {
-          throw new Error("Deck not found.");
-        }
-        throw new Error(`Failed to load deck: ${response.statusText}`);
-      }
-
-      const loadedDto = await response.json();
-
+      setLoadingDeck(true);
+      const loadedDeck = await fetchApi<DeckDetail>(`decks/${deckId}`);
+      
       // --- Reconstruct Deck State from DTO ---
 
       // Find Leader Card
@@ -741,13 +679,12 @@ export default function DeckBuilder() {
       setLoadDialogOpen(false); // Close the dialog on success
       alert(`Deck "${loadedDto.name || 'Loaded Deck'}" loaded successfully!`);
 
-    } catch (error: any) {
+    } catch (error) {
       console.error("Error loading deck:", error);
-      setLoadDecksError(error.message || "An unknown error occurred.");
-      // Keep dialog open to show error
+      alert(`Error loading deck: ${error instanceof Error ? error.message : String(error)}`);
+    } finally {
+      setLoadingDeck(false);
     }
-    // Don't set loading to false here, let the error display
-    // setLoadingDecks(false);
   };
 
   // --- Calculate Deck Statistics ---

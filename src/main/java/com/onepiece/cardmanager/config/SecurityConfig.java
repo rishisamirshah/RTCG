@@ -57,8 +57,12 @@ public class SecurityConfig {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        // Allow requests from both frontend development servers
-        configuration.setAllowedOrigins(List.of("http://localhost:3000", "http://localhost:3001")); // Added :3000
+        // Allow requests from development servers and the deployed Vercel frontend
+        configuration.setAllowedOrigins(List.of(
+            "http://localhost:3000", 
+            "http://localhost:3001",
+            "https://rtcg.vercel.app" // Added user's Vercel domain
+        ));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*")); // Allow all headers
         configuration.setAllowCredentials(true); // Allow credentials

@@ -56,16 +56,16 @@ export default function LoginPage() {
         setError('');
         
         try {
-            const response = await fetch('http://localhost:8080/api/auth/login', {
+            const response = await fetch('/api/auth/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
                 body: new URLSearchParams({
-                    'username': username,
-                    'password': password,
-                }),
-                credentials: 'include', // Important for cookies
+                    username,
+                    password,
+                }).toString(),
+                redirect: 'manual',
             });
             
             if (response.ok) {

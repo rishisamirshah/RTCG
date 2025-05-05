@@ -1,6 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { fetchApi } from '@/lib/api';
 
 interface AuthContextType {
     user: { username: string } | null;
@@ -19,28 +20,13 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             setIsLoading(true);
             try {
                 // Fetch user info from the backend /me endpoint
-                // Credentials should be sent automatically if cookies are set
-                const response = await fetch('http://localhost:8080/api/auth/me', {
-                    method: 'GET',
-                    headers: {
-                        // No explicit 'Authorization' needed for cookie/session auth
-                        'Accept': 'application/json',
-                    },
-                    credentials: 'include', // Send cookies with the request
-                });
-
-                if (response.ok) {
-                    const userData = await response.json();
-                    setUser(userData); // Expects { username: "..." }
-                } else {
-                    setUser(null);
-                    // Don't log error for 401 Unauthorized, it just means not logged in
-                    if (response.status !== 401) {
-                        console.error('Failed to fetch user:', response.statusText);
-                    }
-                }
+                const userData = await fetchApi<{ username: string }>('auth/me');
+                setUser(userData);
             } catch (error) {
-                console.error('Error fetching user:', error);
+                // Don't log error for 401 Unauthorized, it just means not logged in
+                if (!(error instanceof Error && error.message.includes('401'))) {
+                    console.error('Error fetching user:', error);
+                }
                 setUser(null);
             } finally {
                 setIsLoading(false);
