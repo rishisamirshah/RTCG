@@ -52,4 +52,5 @@ frontend/.DS_Store
 frontend/.env*
 !frontend/.env.example
 frontend/out/
-frontend/build/ 
+frontend/build/
+bore
